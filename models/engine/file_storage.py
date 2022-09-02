@@ -34,14 +34,14 @@ class FileStorage:
         with open(FileStorage.__file_path, "w") as doc:
             json.dump(objectdict, doc)
 
-        def reload(self):
-            """deserializes the JSON file to __objects (only if the JSON file exists"""
-            try:
-                with open(File.__file_path) as doc:
-                    objectdict = json.load(doc)
-                    for o in objectdict.values():
-                        cls_name = o["__class__"]
-                        del o["__class__"]
-                        self.new(eval(cls_name)(**o))
-            except FileNotFoundError:
-                return
+    def reload(self):
+        """deserializes the JSON file to __objects (only if the JSON file exists"""
+        try:
+            with open(File.__file_path) as doc:
+                objectdict = json.load(doc)
+                for o in objectdict.values():
+                    cls_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(cls_name)(**o))
+        except FileNotFoundError:
+            return
